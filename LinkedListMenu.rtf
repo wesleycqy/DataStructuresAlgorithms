@@ -1,0 +1,367 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+import java.util.Scanner;  \
+\
+public class LinkedList \{\
+    Node head;\
+    Node tail;\
+    static class Node \{\
+        int element;\
+        Node next;\
+        Node(int e) \{\
+            element = e;\
+            next = null;\
+        \}\
+    \}\
+    \
+    public void insertAtHead(int e) \{\
+        Node new_node = new Node(e);\
+        if (head == null) //if first element in the linked list\
+            head = tail = new_node;\
+        else \{\
+            new_node.next = head;\
+            head = new_node;\
+        \}\
+    \}\
+    \
+    public void insertAtTail(int e) \{\
+        Node new_node = new Node(e);\
+        if (head == null)\
+            head = tail = new_node;\
+        else \{\
+            tail.next = new_node;\
+            tail = new_node;\
+        \}\
+    \}\
+    \
+    public void insertAtLocation(int loc, int e) \{\
+        Node new_node = new Node(e);\
+        Node n = head;\
+        int track = 0;\
+        //check if list is empty\
+        if (loc > getListSize() + 1)\
+            System.out.println("\\nCannot Insert at Location " + loc + ". Location out of bound");\
+        else if (loc == 1)\
+            insertAtHead(e);\
+        else if (loc == (getListSize() + 1))\
+            insertAtTail(e);\
+        else \{\
+            while (track + 2 < loc) \{\
+                track++;\
+                n = n.next;\
+            \}\
+            new_node.next = n.next;\
+            n.next = new_node;\
+        \}\
+    \}\
+    \
+    void deleteAtLocation(int loc) \{\
+        Node n = head;\
+        int count = 0;\
+        while (n != null) \{\
+            count++;\
+            n = n.next;\
+        \}\
+        int ListSize = count; // taken from getListSize() to check if delete location exists on Linked List\
+        if (head == null) // check if linked list is emopty\
+        \{\
+            System.out.println("\\nList is Empty, Nothing to Delete!");\
+            return;\
+        \}\
+\
+        Node deleteLoc = head;\
+        if (loc > ListSize) \{\
+            System.out.print("\\nList does not include that location!");\
+            return;\
+        \}\
+\
+        if (loc == 0) \{\
+            head = deleteLoc.next; //delete at head\
+            return;\
+        \}\
+        for (int x = 0; x < loc - 1; x++) \{\
+            deleteLoc = deleteLoc.next;\
+        \}\
+\
+        if (deleteLoc == null || deleteLoc.next == null) \{\
+            return;\
+        \} else \{\
+            Node next = deleteLoc.next.next;\
+            deleteLoc.next = next;\
+        \}\
+\
+\
+    \}\
+    \
+    public void deleteAtHead() \{\
+        if (getListSize() == 0)\
+            System.out.print("List is Empty, Nothing to Delete!");\
+        else if (head == tail) \{\
+            head = tail = null;\
+        \} else \{\
+            head = head.next;\
+        \}\
+    \}\
+    \
+    public void deleteAtTail() \{\
+        Node new_node = head;\
+\
+        while (new_node.next != tail) \{ \
+            new_node = new_node.next;\
+            new_node.next = new_node.next;\
+        \}\
+        int retval = new_node.next.element;\
+        free(new_node.next);\
+        new_node.next = null;\
+\
+    \}\
+    \
+    private void free(LinkedList.Node next) \{\
+    \}\
+    \
+    public int getListSize() \{\
+        Node n = head;\
+        int count = 0;\
+        while (n != null) \{\
+            count++;\
+            n = n.next;\
+        \}\
+        return count;\
+    \}\
+    \
+    public void displayList() \{\
+        Node n = head;\
+        System.out.print("\\nElements in the list: ");\
+        while (n != null) \{\
+            System.out.print(n.element + " ");\
+            n = n.next;\
+        \}\
+    \}\
+    \
+    public void isEmpty() \{\
+        if(getListSize()==0)\{\
+            System.out.print("\\nTrue: List is Empty");\
+        \}\
+        else \{\
+            System.out.print("\\nFalse: List is not Empty");\
+        \}\
+    \}\
+    \
+    public boolean listContains(int r)\{\
+        Node n = head;\
+        Node saveHead = head;\
+        Node t = head;\
+        int flag = 0;\
+        int count = 0;\
+        while (n != null) \{\
+            count++;\
+            n = n.next;\
+        \}\
+        int ListSize = count; // taken from getListSize() to check if delete location exists on Linked List\
+        count = 0;\
+        \
+        while(count<ListSize)\
+        \{\
+            if (t.element==r)\
+            \{\
+                flag =1;\
+                break;\
+            \}\
+            \
+            count++;\
+            t=t.next;\
+        \}\
+        if (flag ==0)\
+        \{\
+            System.out.print("\\nDoes Not Contain");\
+            head=saveHead;\
+            return false;\
+        \}\
+        else\
+        \{\
+            System.out.print("\\nContains");\
+            head=saveHead;\
+            return true;\
+        \}\
+        \
+        \
+    \}\
+    \
+    public void addAfterValue(int r, int numberToBeAdded)\{\
+        Node n = head;\
+        Node saveHead = head;\
+        Node t = head;\
+        int flag = 0;\
+        int count = 0;\
+        while (n != null) \{\
+            count++;\
+            n = n.next;\
+        \}\
+        int ListSize = count; // taken from getListSize() to check if delete location exists on Linked List\
+        count = 0;\
+        \
+        while(count<ListSize)\
+        \{\
+            if (t.element==r)\
+            \{\
+                break;\
+            \}\
+            \
+            count++;\
+            t=t.next;\
+        \}\
+        insertAtLocation(count+2, numberToBeAdded);\
+        \
+    \}\
+    \
+    public void deleteAfterValue(int r)\{\
+        Node n = head;\
+        Node saveHead = head;\
+        Node t = head;\
+        int flag = 0;\
+        int count = 0;\
+        while (n != null) \{\
+            count++;\
+            n = n.next;\
+        \}\
+        int ListSize = count; // taken from getListSize() to check if delete location exists on Linked List\
+        count = 0;\
+        \
+        while(count<ListSize)\
+        \{\
+            if (t.element==r)\
+            \{\
+                break;\
+            \}\
+            \
+            count++;\
+            t=t.next;\
+        \}\
+        deleteAtLocation(count+1);\
+        \
+    \}\
+    \
+    public static void main(String[] args) \{\
+        LinkedList llist = new LinkedList();\
+        Scanner inputs = new Scanner(System.in);\
+        String option = " ";\
+        int optionInt= 0;\
+        \
+        \
+        while (optionInt!=13)\
+        \{\
+            System.out.println("\\nWhich function would you like to perform?");\
+            System.out.println("\\t1. Insert Value at Head");\
+            System.out.println("\\t2. Insert Value at Tail");\
+            System.out.println("\\t3. Insert Value at Specific Position");\
+            System.out.println("\\t4. Insert Value after a Specific Value");\
+            System.out.println("\\t5. Delete at Head");\
+            System.out.println("\\t6. Delete at Tail");\
+            System.out.println("\\t7. Delete at Specific Position");\
+            System.out.println("\\t8. Delete after a Specific Value");\
+            System.out.println("\\t9. Check Size of the list");\
+            System.out.println("\\t10. Check if the list is empty");\
+            System.out.println("\\t11. Display the list");\
+            System.out.println("\\t12. Checks if the list contains a specific value");\
+            System.out.println("\\t13. Exit\\n\\n");\
+            System.out.print("Which would you like to perform: ");\
+            option = inputs.nextLine(); \
+            optionInt= Integer.parseInt(option);\
+            \
+            \
+            if (optionInt==1)\
+            \{\
+                System.out.println("\\n\\nWhat number would you like to insert at head?\\n");\
+                String numberToBeAdded = inputs.nextLine(); \
+                int numberToBeAddedInt= Integer.parseInt(numberToBeAdded);\
+                llist.insertAtHead(numberToBeAddedInt);\
+            \}\
+            else if (optionInt==2)\
+            \{\
+                System.out.println("\\n\\nWhat number would you like to insert at tail?\\n");\
+                String numberToBeAdded = inputs.nextLine(); \
+                int numberToBeAddedInt= Integer.parseInt(numberToBeAdded);\
+                llist.insertAtTail(numberToBeAddedInt);\
+            \}\
+            else if (optionInt==3)\
+            \{\
+                System.out.println("\\n\\nWhat number would you like to insert?\\n");\
+                String numberToBeAdded = inputs.nextLine(); \
+                int numberToBeAddedInt= Integer.parseInt(numberToBeAdded);\
+                System.out.println("\\n\\nWhat position?\\n");\
+                String position = inputs.nextLine(); \
+                int positionInt= Integer.parseInt(position);\
+                llist.insertAtLocation(positionInt, numberToBeAddedInt);\
+            \}\
+            else if (optionInt==4)\
+            \{\
+                System.out.println("\\n\\nWhat number would you like to insert?\\n");\
+                String numberToBeAdded = inputs.nextLine(); \
+                int numberToBeAddedInt= Integer.parseInt(numberToBeAdded);\
+                System.out.println("\\n\\nWhat value would you like to insert after?\\n");\
+                String position = inputs.nextLine(); \
+                int positionInt= Integer.parseInt(position);\
+                llist.addAfterValue( positionInt, numberToBeAddedInt);\
+            \}\
+            else if (optionInt==5)\
+            \{\
+                llist.deleteAtHead();\
+                System.out.println("\\nValue at Head deleted!");\
+                \
+            \}\
+            else if (optionInt==6)\
+            \{\
+                llist.deleteAtTail();\
+                System.out.println("\\nValue at Tail deleted!");\
+            \}\
+            else if (optionInt==7)\
+            \{\
+                System.out.println("\\n\\nWhat position would you like deleted?\\n");\
+                String position = inputs.nextLine(); \
+                int positionInt= Integer.parseInt(position);\
+                llist.deleteAtLocation( positionInt);\
+                System.out.println("\\nValue at position "+position+" deleted!");\
+            \}\
+            else if (optionInt==8)\
+            \{\
+                System.out.println("\\nWhat Value would you like to delete after? ");\
+                String value = inputs.nextLine(); \
+                int valueInt= Integer.parseInt(value);\
+                llist.deleteAfterValue(valueInt);\
+                System.out.println("\\nValue after "+valueInt+" deleted!");\
+            \}\
+            else if (optionInt==9)\
+            \{\
+                System.out.print("List size is: "+llist.getListSize()+"\\n");\
+            \}\
+            else if (optionInt==10)\
+            \{\
+                llist.isEmpty();\
+            \}\
+            else if (optionInt==11)\
+            \{\
+                llist.displayList();\
+            \}\
+            else if (optionInt==12)\
+            \{\
+                System.out.println("\\nWhat Value would like to check?  ");\
+                String value = inputs.nextLine(); \
+                int valueInt= Integer.parseInt(value);\
+                llist.listContains(valueInt);\
+            \}\
+            else if (optionInt==13)\
+            \{\
+                System.out.println("Bye Bye!");\
+                break;\
+            \}\
+        \}\
+        \
+        \
+    \}\
+\}}

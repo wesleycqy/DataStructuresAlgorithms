@@ -1,0 +1,83 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 public class circularQueue < E > \{\
+    private E[] circularQueue;\
+    private int head;\
+    private int tail;\
+    private int size;\
+\
+    circularQueue(int size) \{\
+        circularQueue = (E[]) new Object[size];\
+        head = -1;\
+        tail = -1;\
+        size = 0;\
+    \}\
+\
+    private void enqueue(E enqueueItem) \{\
+        if (size == circularQueue.length) \{\
+            System.out.println("Circular Queue is Full!");\
+        \} else \{\
+            tail = (tail + 1) % circularQueue.length;\
+            circularQueue[tail] = enqueueItem;\
+            size++;\
+            if (head == -1) \{\
+                head++;\
+            \}\
+        \}\
+    \}\
+\
+    private E dequeue() \{\
+        if (size == 0) \{\
+            System.out.println("Circular Queue is Empty!");\
+            return null;\
+        \} else \{\
+            E dequeueItem = circularQueue[head];\
+            circularQueue[head] = null;\
+            head = (head + 1) % circularQueue.length;\
+            size--;\
+            return dequeueItem;\
+        \}\
+    \}\
+\
+    private void display() \{\
+        // System.out.print("Queue is now: [");\
+        // for (int i = 0; i < (size-1); i++) \
+        // \{\
+        // System.out.print(circularQueue[head+i]+", ");\
+        // \}\
+        // System.out.print(circularQueue[size-1]);\
+        // System.out.println("]");\
+        System.out.print(circularQueue[0] + "\\t");\
+        System.out.print(circularQueue[1] + "\\t");\
+        System.out.print(circularQueue[2] + "\\t");\
+        System.out.print(circularQueue[3] + "\\t");\
+        System.out.print(circularQueue[4] + "\\n");\
+    \}\
+\
+\
+    public static void main(String args[]) \{\
+        circularQueue < Integer > circularQueue = new circularQueue < Integer > (5);\
+        circularQueue.enqueue(2);\
+        circularQueue.enqueue(4);\
+        circularQueue.enqueue(6);\
+        circularQueue.enqueue(8);\
+        circularQueue.enqueue(10);\
+        circularQueue.display();\
+        circularQueue.dequeue();\
+        circularQueue.display();\
+        circularQueue.enqueue(99);\
+        circularQueue.display();\
+        circularQueue.dequeue();\
+        circularQueue.dequeue();\
+        circularQueue.display();\
+        circularQueue.enqueue(55);\
+        circularQueue.enqueue(45);\
+        circularQueue.display();\
+\
+    \}\
+\}}

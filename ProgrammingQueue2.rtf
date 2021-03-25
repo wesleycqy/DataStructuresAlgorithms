@@ -1,0 +1,130 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 public class ArrayQueue \{\
+    int[] ArrayQueue;\
+    int head, tail, size;\
+\
+    public ArrayQueue(int QueueSize) \{\
+        ArrayQueue = new int[QueueSize];\
+        tail = -1;\
+        head = -1;\
+        size = 0;\
+    \}\
+\
+    public boolean isEmpty() \{\
+        boolean QueueIsEmpty = false;\
+\
+        if (size == 0) \{\
+            QueueIsEmpty = true;\
+        \}\
+        return QueueIsEmpty;\
+    \}\
+\
+    public void enqueue(int element) \{\
+        String response = element + " could not be added";\
+\
+        if (tail != ArrayQueue.length - 1) \{\
+            tail++;\
+            ArrayQueue[tail] = element;\
+            size++;\
+            response = element + " was added to queue";\
+        \}\
+        System.out.println(response);\
+    \}\
+\
+    public void dequeue() \{\
+        int deletedValue = 0;\
+        if (size != 0) \{\
+            //head++;\
+            deletedValue = ArrayQueue[0];\
+            size--;\
+            System.out.println(deletedValue + " was deleted from the queue.");\
+            for (int i = 0; i < size; i++) \{\
+                ArrayQueue[i] = ArrayQueue[i + 1];\
+            \}\
+            ArrayQueue[size] = 0;\
+        \} else \{\
+            System.out.println("Nothing was deleted from the queue.");\
+        \}\
+\
+    \}\
+\
+    public int first() \{\
+        int response = 0;\
+        if (!isEmpty()) \{\
+            response = ArrayQueue[head + 1];\
+        \}\
+        return response;\
+    \}\
+\
+    public int size() \{\
+        return size;\
+    \}\
+\
+    public void display() \{\
+        // System.out.print("Queue is now: [");\
+        // for (int i = 1; i < size; i++) \
+        // \{\
+        // System.out.print(ArrayQueue[head+i]+", ");\
+        // \}\
+        // System.out.print(ArrayQueue[head+size]);\
+        // System.out.println("]");\
+\
+        System.out.print(ArrayQueue[0] + "\\t");\
+        System.out.print(ArrayQueue[1] + "\\t");\
+        System.out.print(ArrayQueue[2] + "\\t");\
+        System.out.print(ArrayQueue[3] + "\\t");\
+        System.out.print(ArrayQueue[4] + "\\t\\n");\
+    \}\
+\
+\
+    public static void main(String[] args) \{\
+        ArrayQueue queue1 = new ArrayQueue(5);\
+        System.out.println("Queue is Empty? : " + queue1.isEmpty() + "\\n");\
+\
+        queue1.enqueue(2);\
+        queue1.display();\
+        System.out.println("");\
+\
+        queue1.enqueue(4);\
+        queue1.display();\
+        System.out.println("");\
+\
+        queue1.enqueue(6);\
+        queue1.display();\
+        System.out.println("");\
+\
+        queue1.enqueue(8);\
+        queue1.display();\
+        System.out.println("");\
+\
+        queue1.enqueue(10);\
+        queue1.display();\
+        System.out.println("Size of queue is: " + queue1.size());\
+        System.out.println("");\
+\
+        queue1.enqueue(12);\
+        queue1.display();\
+        System.out.println("");\
+\
+        queue1.dequeue();\
+        queue1.display();\
+        System.out.println(queue1.first() + " is the head of the queue");\
+        System.out.println("Size of queue is: " + queue1.size());\
+        System.out.println("");\
+\
+        queue1.dequeue();\
+        queue1.display();\
+        System.out.println(queue1.first() + " is the head of the queue");\
+        System.out.println("Size of queue is: " + queue1.size());\
+        System.out.println("");\
+\
+\
+    \}\
+\
+\}}
